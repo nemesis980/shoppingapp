@@ -8,16 +8,17 @@
   },
   "dependencies": {
     "@babel/core": "^7.0.0-beta.40",
+    "@google-cloud/vision": "^0.19.0",
+    "app": "^0.1.0",
     "react": "^16.3.0-alpha.3",
-    "react-native": "^0.54.2",
-    "react-native-barcode-scanner-google": "git+https://github.com/ekreutz/react-native-barcode-scanner-google.git#v1.2.0",
+    "react-native": "^0.54.4",
     "watchman": "^1.0.0"
   },
   "devDependencies": {
     "babel-jest": "22.2.2",
     "babel-preset-react-native": "4.0.0",
     "jest": "22.3.0",
-    "react-native-clean-project": "^1.0.7",
+    "react-native-clean-project": "^1.0.8",
     "react-test-renderer": "16.2.0"
   },
   "jest": {

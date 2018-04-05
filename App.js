@@ -1,35 +1,37 @@
+// Imports the Google Cloud client library
+const vision = require('@google-cloud/vision');
+
 import React, { Component } from 'react';
-import { AppRegistry, StyleSheet, Text, View, Alert } from 'react-native';
+import { Text, View } from 'react-native';
 
-import BarcodeScanner, { Exception, FocusMode, CameraFillMode, BarcodeType, pauseScanner, resumeScanner } from 'react-native-barcode-scanner-google';
 
-export default class BarcodeApp extends Component {
+///
+const client = new vision.ImageAnnotatorClient();
+
+// Performs label detection on the image file
+client
+  .labelDetection('./resources/wakeupcat.jpg')
+  .then(results => {
+    const labels = results[0].labelAnnotations;
+
+    console.log('Labels:');
+    labels.forEach(label => console.log(label.description));
+  })
+  .catch(err => {
+    console.error('ERROR:', err);
+  });
+
+class MainView extends Component {
   render() {
     return (
-      <View style={{flex: 1}}>
-          <BarcodeScanner
-              style={{flex: 1}}
-              onBarcodeRead={({data, type}) => {
-                  // handle your scanned barcodes here!
-                  // as an example, we show an alert:
-                  Alert.alert(`Barcode '${data}' of type '${type}' was scanned.`);
-              }}
-              onException={exceptionKey => {
-                  // check instructions on Github for a more detailed overview of these exceptions.
-                  switch (exceptionKey) {
-                      case Exception.NO_PLAY_SERVICES:
-                          // tell the user they need to update Google Play Services
-                      case Exception.LOW_STORAGE:
-                          // tell the user their device doesn't have enough storage to fit the barcode scanning magic
-                      case Exception.NOT_OPERATIONAL:
-                          // Google's barcode magic is being downloaded, but is not yet operational.
-                      default: break;
-                  }
-              }}
-              focusMode={FocusMode.AUTO /* could also be TAP or FIXED */}
-              cameraFillMode={CameraFillMode.COVER /* could also be FIT */}
-              barcodeType={BarcodeType.CODE_128 | BarcodeType.EAN_13 | BarcodeType.EAN_8 /* replace with ALL for all alternatives */}
-          />
+      <View>
+        <Text>
+          If you like React on the web, you'll like React Native.
+        </Text>
+        <Text>
+          You just use native components like 'View' and 'Text',
+          instead of web components like 'div' and 'span'.
+        </Text>
       </View>
     );
   }
